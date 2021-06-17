@@ -1,0 +1,9 @@
+name: "Hypothesis Testing"
+output_dir: "docs"
+output:
+  html_document:
+   theme: flatly
+navbar:
+  title: "HT summary"
+  text: "Hypothesis Testing"
+  href: index.html
