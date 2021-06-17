@@ -1,0 +1,217 @@
+---
+title: "A Summary about Hypothesis Testing"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#### 1. Definition of hypothesis testing
+
+Hypothesis testing is a statistical procedure to assess the evidence provided by the data in favor of some claim about a population parameter, like mean. In other words, it uses sample data to draw inference about the population parameter.   
+<br>
+For example, it has been believed that the mean SAT math score is 470. If now, the mean STA math score of 1000 student selected randomly is 480. Can we make conclusion that students' math skills have been improved?
+<br>
+<br>
+
+#### 2. Framework for Hypothesis Testing
+
+**(1) Set up hypotheses**
+<br>
+
+A null hypothesis and an alternative hypothesis are needed. **Null hypothesis** is the statement being tested in terms of the population parameter. It always claims "no change", or "no effect". **Alternative hypothesis** is what we want to establish based on the sample data we observed. It usually associates with changes or differences in the believed value of the interested parameter. If the alternative hypothesis is about "greater" or "less than" question, then it's a one-sided test. If it's "not equal" , then it is a two-sided test.
+<br>
+
+**(2) Calculate test statistic**
+<br>
+
+A test statistic based on a specific distribution is used to assess how far an estimate of the parameter is from the believed value under null hypothesis. 
+<br>
+
+**(3) Compute the probability**
+<br>
+
+The probability of observed evidence against the null hypothesis can be calculated assuming that the null hypothesis is true. This probability is also called p-value.
+<br>
+
+**(4) Make a conclusion**
+<br>
+
+If the probability of observed evidence is large when we assume the null is true, then we know the sample value of the parameter is likely to be obtained. We don't have enough evidence to reject the null hypothesis. Otherwise, a tiny probability under the null indicates that the null is not true. We need to reject it and conclude that there is a change in the value of the parameter.  
+<br>
+We can compare the p-value with a specific significant level, $\alpha$ , or compare the observed test statistics with the critical value under $\alpha$ to draw the conclusion. If the p-value is less than $\alpha$ level or the test statistics is greater than the critical value, then we need to reject the null hypothesis.
+<br>
+<br>
+
+#### 3. Different type of tests
+
+A population usually comes from a specific distribution.  And the critical value is also determined under the distribution. For different distributions, different tests should be used. 
+<br>
+
+**(1) z-test**
+<br>
+
+A z-test should be conducted when the sample data are drawn from a normal distribution and the population standard deviation $\sigma$ is known.  
+<br>
+E.g. Suppose STA math score follows normal distribution and the average STA math score is believed to be 470.  Now, we randomly select 1000 students from the whole population, and calculate the mean STA math score which is about 480. And the standard deviation of STA math score is assumed to be 120. Do we have enough evidence to conclude that the average STA math score has been improved?  
+<br>
+
+* Hypothesis  
+$H_{0}$: There is no change in the mean STA score of the population / $\mu$ = 470  
+$H_{a}$: The population mean of STA score is improved / $\mu$ > 470  
+
+* Test statistics  
+$$z_{obs} = \frac{(\bar{x}-\mu)}{{\sigma}/{\sqrt{n}} } = \frac{(480-470)}{{120}/{\sqrt{1000}} }$$
+where $\bar{x}$ is sample mean   
+      $\mu$ is population mean  
+      $\sigma$ is population standard deviation
+<br>
+
+If $z_{obs}$ is greater than the critical value associated with significance level $\alpha$ or p-value is less than $\alpha$, then we reject $H_{0}$ and conclude that this is an improvement in STA math score.
+<br>
+<br>
+
+**(2) t-test**
+<br>
+
+When the population standard deviation $\sigma$ is unknown, the z-procedures for inference of a population mean $\mu$ cannot be used. If the sample is still drawn randomly from normal distribution and the sample size is large enough, in this case, we use sample standard deviation $S$ as the estimate of $\sigma$. When $\sigma$ is substituted with $S$, the ratio $\frac{(\bar{x}-\mu)}{{S}/{\sqrt{n}} }$ does not follow normal distribution anymore. It follows $t$ distribution with $n - 1$ degree of freedom. Then, we need to use t-test.
+<br>
+
+**One-sample t-test**
+<br>
+
+One-sample t-test tests the sample mean against a known mean.
+<br>
+
+E.g. Suppose, on average, each user in a certain social media has 120 friends. The number of friends is assumed to be normally distributed. We randomly draw 40 users from the population. The sample mean and sample standard deviation is 150 and 180. Can we say the mean number of friends in this social media is changed now?
+<br>
+
+* Hypothesis  
+$H_{0}$: There is no change in the mean number of friends / $\mu = 120$    
+$H_{a}$: There is a change in the mean number of friends / $\mu \neq 120$    
+<br>
+
+* Test statistics    
+$$t_{obs} = \frac{(\bar{x}-\mu)}{{S}/{\sqrt{n}} } = \frac{(150-120)}{{180}/{\sqrt{40}} }$$
+where $\bar{x}$ is sample mean   
+      $\mu$ is population mean  
+      $S$ is sample standard deviation    
+<br>
+
+If $t_{obs}$ is greater than the critical value associated with significance level $\alpha$, or the p-value is less than $\alpha$ level, then we reject $H_{0}$.  
+<br>
+
+**Paired-sample t-test**
+<br>
+
+Sometimes, we have a kind of matched data, where a collection of independent individuals each have two variables measured on them, and the inference goal is based on comparing these two variables. This is where paired t-test is conducted. In this scenario, we usually take the difference of the two variables and use one-sample t-test. The procedure of paired sample t-test is identical to that of one-sample t-test after we use the difference as our target.  
+<br>
+
+* Hypothesis   
+$H_{0}$: There is no difference between the means of the two variables  
+$H_{a}$: There is a difference between the means of the two variables $(\neq, >, <)$    
+<br>
+
+* Test statistic  
+
+The test statistic is 
+$$t_{obs} = \frac{(diff-0)}{{S_{diff}}/{\sqrt{n}} }$$
+where diff is the sample difference between the mean of the two variables, and $S_{diff}$ is the standard deviation of the sample difference.
+<br>
+
+Another approach for matched pairs data is **sign test**, a nonparametric method. There is no distribution assumption in sign test. It assumes that observations are independent and they have a common true median. For example, we want to test if one group has a higher median value than the other group. The general steps are as follows:
+<br>
+
+* Hypothesis    
+$H_{0}$: Both groups are equally likely to be observed / $p = 0.5$ / the population median of paired differences is zero      
+$H_{a}$: One group is more likely to be observed / $p > 0.5$ / the population median of paired differences is greater zero      
+<br>
+
+* Test statistic  
+
+The test statistic for the sign test is the count, X, of pairs with a positive difference. Under the null hypothesis, the distribution of the test statistic is binomial with sample size $n$ and probability $p = 0.5$, $Bin(n, 0.5)$. The p-value for the observed sign test statistic is $P(X \ge test statistic)$ under $Bin(n, 0.5)$.
+<br> 
+
+If the p-value is less than significance level, then we reject the null.
+<br>
+
+**Two-sample t-test**
+<br>
+
+Sometimes, we want to compare the means of a sample from each of two independent populations. For example, we have 200 observations. 100 of them are from population 1 and the other 100 are from population 2. The two populations may be from the same distribution family with similar shape, similar spread but different centers. And we are usually interested in the population mean difference and want to know if the difference, $\delta = \mu_{1} - \mu_{2}$, is zero.  And we use sample mean, $\bar{Y_{1}} - \bar{Y_{2}}$, as the point estimate of $\delta$. So, if the population distributions are normal with unknown means $\mu_{1}, \mu_{2}$ and unknown standard deviation, and the two samples are independent of one another, then we would use two-sample t procedure to run the test.  
+<br>
+
+* Hypothesis  
+$H_{0}$: $\mu_{1} - \mu_{2} = 0$    
+$H_{a}$: $\mu_{1} - \mu_{2} \neq 0$ / $\mu_{1} - \mu_{2} > 0$ / $\mu_{1} - \mu_{2} < 0$  
+<br>
+
+* Test statistic
+
+Depending on if the standard deviation of the two population is equal nor not, we will have different standard error and degree of freedom. 
+<br>
+
+The test statistic for **equal variance** t-test is
+$$t_{obs} = \frac{\bar{Y_{1}} - \bar{Y_{2}}-(\mu_{1} - \mu_{2})}{{S_{p}}/{\sqrt{\frac{1}{n_{1}} + \frac{1}{n_{2}}}} } $$
+
+where $S_{p} = \sqrt{\frac{(n_{1}-1)S_{1}^2 + (n_{2}-1)S_{2}^2}{n_{1} +n_{2} -2}}$    
+      $S_{1}$ and  $S_{2}$ are standard deviation of observations from population 1 and population 2
+      respectively.    
+<br>
+
+Degree of freedom is $df = n_{1} + n_{2} - 2$  
+<br>
+
+The test statistic for **unequal variance** t-test is  
+
+$$t_{obs} = \frac{\bar{Y_{1}} - \bar{Y_{2}}-(\mu_{1} - \mu_{2})}{{\sqrt{\frac{S_{1}^2}{n_{1}} + \frac{S_{2}^2}{n_{2}}}} } $$
+
+Degree of freedom is 
+$$df = \frac{(\frac{S_{1}^2}{n_{1}} + \frac{S_{2}^2}{n_{2}})^2}{\frac{(\frac{S_{1}^2}{n_{1}})^2} {n_{1} - 1} + \frac{(\frac{S_{2}^2}{n_{2}})^2} {n_{2} - 1}}$$
+
+<br>
+
+**(3) One-way ANOVA**
+<br>
+
+When we compare the means of two categories we could use two-sample t-test. When we have more than two categories, ANOVA approach is applied. ANOVA is short for "analysis of variance". Although the name is about variance, it is still a test about differences in means. And the differences in means are assessed by comparing the amounts of variability explained by different sources. 
+<br>
+
+It assumes that observations are independent and all from normal distribution with equal variance. 
+<br>
+
+* Hypothesis  
+$H_{0}$: All means are equal    
+$H_{a}$: At least one pair of means is not equal    
+<br>
+
+* Test Statistic
+
+The test statistic is ${\frac{MS_{trt}}{MSE}}$ ~ $F_{a-1, N-a}$. $a$ is the number of category and $N$ is the total number of observations. There are functions in software to run ANOVA test. It can be done easily.
+<br>
+
+
+**(4) Chi-squared test**
+<br>
+
+Chi-squared test is commonly used to test the independent relationship between two categorical variables. 
+<br>
+
+* Hypothesis  
+$H_{0}$: Variable A and variable B are independent    
+$H_{a}$: Variable A and variable b are not independent    
+<br>
+
+* Test Statistic
+
+The test statistic is $\chi^2 = \sum\frac{(O_{i} - E_{i})^2}{E_{i}}$. $O_{i}$ is observed value and  $E_{i}$ is expected value. Degree of freedom is $df = (r-1)(c-1)$. $r$ and $c$ are the number of levels in variable A and B respectively.  
+<br>
+
+This is a summary for hypothesis testing only. You can find examples about ANOVA F-test and Chi-squared test for independence in "dough rising" example and "categorical data analysis" section.
+
+<br>
+<br>
+<br>
+<br>
+
